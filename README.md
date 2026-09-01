@@ -1,18 +1,24 @@
 # 🎙️ Meeting Minutes AI
 
-An AI-powered application that converts meeting recordings into clear, structured and professional meeting minutes.
+An AI-powered application that converts meeting recordings into clear, structured, and professional meeting minutes.
+
+Upload an MP3 meeting recording and the application automatically generates a full transcript and structured meeting minutes.
 
 ## ✨ Features
 
 - 🎙️ MP3 meeting recording upload
-- 📝 Speech-to-text transcription using OpenAI
+- 📝 Automatic audio transcription
 - 🤖 AI-powered meeting analysis
 - 📋 Structured meeting minutes
-- 🎯 Key decisions and action items
-- 📄 Full transcript
-- 🎨 Clean Gradio UI
-- 🖼️ Custom logo and branding
-- 💻 Runs locally without requiring a dedicated GPU
+- 🎯 Key decisions
+- ✅ Action items
+- 📌 Important points
+- 🚀 Next steps
+- 🎨 Clean Gradio interface
+- 🖼️ Custom application branding
+- 💻 Local development support
+
+---
 
 ## 🧠 Workflow
 
@@ -26,98 +32,190 @@ OpenAI gpt-4o-mini-transcribe
 OpenAI GPT-4o-mini
        ↓
 📋 Meeting Minutes
+```
 
-## 🖥️ Screenshots
+The application uses a two-stage AI pipeline.
 
-### Application Interface
+### 1. Audio → Transcript
 
-<img src="./screenshots/ss1.png" alt="Meeting Minutes AI" width="800"/>
+The uploaded MP3 recording is processed using OpenAI's transcription model.
 
-### Meeting Recording Upload
-
-<img src="./screenshots/ss2.png" alt="Upload Meeting Recording" width="800"/>
-
-### Audio Transcription
-
-<img src="./screenshots/ss3.png" alt="Audio Transcription" width="800"/>
-
-### Generated Meeting Minutes
-
-<img src="./screenshots/ss4.png" alt="Generated Meeting Minutes" width="800"/>
-
-### Full Transcript
-
-<img src="./screenshots/ss5.png" alt="Full Transcript" width="800"/>
-
-🛠️ Tech Stack
-Technology	Purpose
-Python	Application development
-Gradio	User interface
-OpenAI API	AI processing
-gpt-4o-mini-transcribe	Audio transcription
-GPT-4o-mini	Meeting analysis
-python-dotenv	Environment variables
-🦙 Llama & Hugging Face Exploration
-
-I also explored an alternative GPU-based architecture using:
-
-Meta Llama 3.1 8B Instruct
-Hugging Face Transformers
-Hugging Face Hub
-BitsAndBytes 4-bit quantization
-PyTorch
-GPU inference
-Hugging Face ZeroGPU
-
-The explored architecture:
-
+```text
 MP3 Recording
       ↓
-OpenAI Transcription
+OpenAI gpt-4o-mini-transcribe
       ↓
-Transcript
+Full Transcript
+```
+
+### 2. Transcript → Meeting Minutes
+
+The generated transcript is analyzed using GPT-4o-mini to create structured meeting minutes.
+
+```text
+Full Transcript
       ↓
-Llama 3.1 8B Instruct
-      ↓
-BitsAndBytes 4-bit
-      ↓
-GPU Inference
+OpenAI GPT-4o-mini
       ↓
 Meeting Minutes
+```
 
-Llama 3.1 8B requires suitable GPU resources for practical inference. BitsAndBytes 4-bit quantization reduces the model's memory footprint, making GPU-based inference more practical.
+---
 
-For the current version, OpenAI is used for meeting analysis so the complete application can run locally without requiring a dedicated GPU.
+# 🖥️ Screenshots
 
-💻 Local Setup
-1. Clone the repository
+## Application Interface
+
+![Meeting Minutes AI](./screenshots/ss1.png)
+
+## Meeting Recording Upload
+
+![Meeting Recording Upload](./screenshots/ss2.png)
+
+## Audio Transcription
+
+![Audio Transcription](./screenshots/ss3.png)
+
+## Generated Meeting Minutes
+
+![Generated Meeting Minutes](./screenshots/ss4.png)
+
+## Full Transcript
+
+![Full Transcript](./screenshots/ss5.png)
+
+---
+
+# 🛠️ Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| Python | Application development |
+| Gradio | User interface |
+| OpenAI API | AI processing |
+| gpt-4o-mini-transcribe | Audio transcription |
+| GPT-4o-mini | Meeting analysis |
+| python-dotenv | Environment variables |
+
+---
+
+# 🦙 Llama & Hugging Face Exploration
+
+During development, an alternative GPU-based architecture was also explored using:
+
+- Meta Llama 3.1 8B Instruct
+- Hugging Face Transformers
+- Hugging Face Hub
+- BitsAndBytes
+- 4-bit quantization
+- PyTorch
+- GPU inference
+- Hugging Face ZeroGPU
+
+The explored architecture was:
+
+```text
+🎙️ MP3 Recording
+        ↓
+OpenAI Transcription
+        ↓
+📝 Transcript
+        ↓
+Llama 3.1 8B Instruct
+        ↓
+BitsAndBytes 4-bit
+        ↓
+GPU Inference
+        ↓
+📋 Meeting Minutes
+```
+
+Llama 3.1 8B is a considerably larger model and practical inference requires suitable GPU resources.
+
+BitsAndBytes 4-bit quantization can reduce memory usage, making GPU inference more practical.
+
+For the current local version of this project, OpenAI is used for meeting analysis so the complete application can run locally without requiring a dedicated GPU.
+
+---
+
+# 💻 Local Setup
+
+## 1. Clone the repository
+
+```bash
 git clone <YOUR_GITHUB_REPOSITORY_URL>
 cd meeting-minutes-ai
-2. Create virtual environment
+```
+
+## 2. Create a virtual environment
+
+Python 3.11 is recommended.
+
+```bash
 python3.11 -m venv .venv
-3. Activate environment
+```
+
+## 3. Activate the virtual environment
+
+### macOS / Linux
+
+```bash
 source .venv/bin/activate
-4. Install dependencies
+```
+
+### Windows
+
+```bash
+.venv\Scripts\activate
+```
+
+## 4. Install dependencies
+
+```bash
 pip install -r requirements.txt
-5. Configure API Key
+```
 
-Create a .env file:
+## 5. Configure OpenAI API Key
 
+Create a `.env` file in the project root:
+
+```env
 OPENAI_API_KEY=your_openai_api_key
-6. Run the application
+```
+
+Never commit the `.env` file to GitHub.
+
+## 6. Run the application
+
+```bash
 python app.py
+```
 
-Open the Gradio URL shown in the terminal.
+The Gradio application will start locally.
 
-🔐 Security
+---
 
-API keys are stored using environment variables.
+# 🔐 Security
 
-The .env file is excluded from Git using .gitignore.
+The project uses environment variables for API keys.
 
-Never commit API keys or other sensitive credentials to the repository.
+The `.env` file should be included in `.gitignore`:
 
-📁 Project Structure
+```gitignore
+.venv/
+.env
+__pycache__/
+*.pyc
+.DS_Store
+```
+
+API keys should never be hardcoded into the source code or committed to GitHub.
+
+---
+
+# 📁 Project Structure
+
+```text
 meeting-minutes-ai/
 │
 ├── assets/
@@ -146,41 +244,69 @@ meeting-minutes-ai/
 ├── app.py
 ├── requirements.txt
 ├── README.md
+├── LICENSE
 └── .gitignore
-🎯 Project Goal
+```
 
-The goal of Meeting Minutes AI is to simplify the process of turning long meeting recordings into useful documentation.
+---
 
-Instead of manually:
+# 🎯 Project Goal
 
+Meeting Minutes AI is designed to reduce the manual effort required to convert long meeting recordings into useful documentation.
+
+### Traditional Process
+
+```text
 Listen to Recording
-       ↓
+        ↓
 Take Notes
-       ↓
+        ↓
 Review Recording
-       ↓
-Write Minutes
-       ↓
+        ↓
+Write Meeting Minutes
+        ↓
 Identify Action Items
+```
 
-the application provides:
+### With Meeting Minutes AI
 
+```text
 Upload MP3
-    ↓
-AI Processing
-    ↓
+     ↓
+AI Transcription
+     ↓
+AI Analysis
+     ↓
 Meeting Minutes
-🚀 Future Improvements
-👥 Speaker identification
-📄 PDF and DOCX export
-📧 Email-ready summaries
-💾 Meeting history
-🔍 Search across meetings
-🌐 Multi-language support
-📅 Automatic meeting metadata extraction
-👨‍💻 Author
-Dev Patel
+```
+
+---
+
+# 🚀 Future Improvements
+
+- 👥 Speaker identification
+- 📄 PDF export
+- 📝 DOCX export
+- 📧 Email-ready summaries
+- 💾 Meeting history
+- 🔍 Search across meetings
+- 🌐 Multi-language support
+- 📅 Automatic meeting metadata extraction
+
+---
+
+# 📜 License
+
+This project is licensed under the MIT License.
+
+See the [LICENSE](./LICENSE) file for details.
+
+---
+
+# 👨‍💻 Author
+
+## Dev Patel
 
 Made with ❤️ and passion.
 
-Turn Conversations Into Clarity.
+> **Turn Conversations Into Clarity.**
